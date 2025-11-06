@@ -1,0 +1,885 @@
+/* PRODESAL de Castro - Estilos para APIs Reales */
+/* MiniMax Agent - Versión mejorada con funcionalidades de APIs */
+
+:root {
+  /* Colores principales */
+  --primary-color: #10B981;
+  --primary-dark: #059669;
+  --secondary-color: #6366F1;
+  --accent-color: #F59E0B;
+  
+  /* Colores de estado */
+  --success-color: #10B981;
+  --warning-color: #F59E0B;
+  --error-color: #EF4444;
+  --info-color: #3B82F6;
+  
+  /* Colores de fondo */
+  --bg-primary: #F8F9FA;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F1F5F9;
+  
+  /* Colores de texto */
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+  
+  /* Colores de clima */
+  --weather-sunny: #FCD34D;
+  --weather-cloudy: #94A3B8;
+  --weather-rainy: #60A5FA;
+  --weather-stormy: #7C3AED;
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  
+  /* Bordes */
+  --border-radius: 8px;
+  --border-radius-lg: 12px;
+  
+  /* Transiciones */
+  --transition-fast: 0.15s ease-in-out;
+  --transition-normal: 0.3s ease-in-out;
+  
+  /* Fuentes */
+  --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* === INDICADOR DE CONEXIÓN === */
+.connection-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: var(--border-radius);
+  font-size: 12px;
+  font-weight: 500;
+  transition: var(--transition-fast);
+}
+
+.connection-status.online {
+  background-color: #D1FAE5;
+  color: var(--success-color);
+  border: 1px solid #A7F3D0;
+}
+
+.connection-status.offline {
+  background-color: #FEE2E2;
+  color: var(--error-color);
+  border: 1px solid #FECACA;
+}
+
+.connection-status i {
+  width: 14px;
+  height: 14px;
+}
+
+/* === BOTÓN DE ACTUALIZACIÓN === */
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.refresh-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: rotate(180deg);
+}
+
+.refresh-btn i {
+  width: 18px;
+  height: 18px;
+}
+
+/* === NOTIFICACIONES MEJORADAS === */
+.notifications-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  max-width: 400px;
+}
+
+.notification {
+  background: var(--bg-secondary);
+  border: 1px solid #E5E7EB;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 16px;
+  margin-bottom: 12px;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.notification.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.notification.success {
+  border-left: 4px solid var(--success-color);
+}
+
+.notification.warning {
+  border-left: 4px solid var(--warning-color);
+}
+
+.notification.error {
+  border-left: 4px solid var(--error-color);
+}
+
+.notification.info {
+  border-left: 4px solid var(--info-color);
+}
+
+.notification h4 {
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.notification p {
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.notification .setup-steps {
+  background: var(--bg-tertiary);
+  padding: 12px;
+  border-radius: var(--border-radius);
+  margin: 8px 0;
+}
+
+.notification .setup-steps h5 {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.notification .setup-steps ol {
+  margin-left: 16px;
+  font-size: 13px;
+}
+
+.notification .setup-steps li {
+  margin-bottom: 4px;
+}
+
+.notification .setup-steps a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.notification .setup-steps a:hover {
+  text-decoration: underline;
+}
+
+.notification .btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: var(--transition-fast);
+}
+
+.notification .btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+/* === PANEL DE ADMINISTRACIÓN === */
+.admin-panel {
+  max-width: 500px;
+}
+
+.api-config {
+  margin-bottom: 24px;
+}
+
+.api-config label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.api-config input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #D1D5DB;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  transition: var(--transition-fast);
+}
+
+.api-config input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.api-config small {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.api-config small a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.api-config small a:hover {
+  text-decoration: underline;
+}
+
+.admin-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.admin-actions button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border: 1px solid #D1D5DB;
+}
+
+.btn-secondary:hover {
+  background-color: #E5E7EB;
+}
+
+/* === TEST DE APIs === */
+.test-results {
+  margin: 16px 0;
+}
+
+.test-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: var(--border-radius);
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.test-item.success {
+  background-color: #D1FAE5;
+  color: var(--success-color);
+  border: 1px solid #A7F3D0;
+}
+
+.test-item.error {
+  background-color: #FEE2E2;
+  color: var(--error-color);
+  border: 1px solid #FECACA;
+}
+
+/* === CLIMA REAL === */
+.weather-icon-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.weather-temp-large {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  line-height: 1;
+  margin: 0;
+}
+
+.weather-condition-large {
+  font-size: 1.5rem;
+  color: var(--text-secondary);
+  margin: 8px 0;
+}
+
+.weather-location {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin: 4px 0;
+}
+
+.weather-updated {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.weather-details {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 20px;
+  margin-top: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.weather-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.weather-detail:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.detail-value {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* === MONITOREO TIZÓN TARDÍO === */
+.station-card {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid;
+}
+
+.station-card.green {
+  border-left-color: #10B981;
+  background: linear-gradient(135deg, #F0FDF4 0%, #F0FDF4 100%);
+}
+
+.station-card.yellow {
+  border-left-color: #F59E0B;
+  background: linear-gradient(135deg, #FFFBEB 0%, #FFFBEB 100%);
+}
+
+.station-card.orange {
+  border-left-color: #F97316;
+  background: linear-gradient(135deg, #FFF7ED 0%, #FFF7ED 100%);
+}
+
+.station-card.red {
+  border-left-color: #EF4444;
+  background: linear-gradient(135deg, #FEF2F2 0%, #FEF2F2 100%);
+}
+
+.station-card h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.station-location {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+  margin-bottom: 12px;
+}
+
+.station-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.status-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.status-indicator.green {
+  background-color: #10B981;
+}
+
+.status-indicator.yellow {
+  background-color: #F59E0B;
+}
+
+.status-indicator.orange {
+  background-color: #F97316;
+}
+
+.status-indicator.red {
+  background-color: #EF4444;
+}
+
+.status-text {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.station-data {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.station-data p {
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.last-update {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* === LEYENDA DE ALERTAS === */
+.legend-container {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.legend-container h4 {
+  margin-bottom: 16px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.legend {
+  display: grid;
+  gap: 8px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.875rem;
+}
+
+.color-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.color-indicator.red {
+  background-color: #EF4444;
+}
+
+.color-indicator.orange {
+  background-color: #F97316;
+}
+
+.color-indicator.yellow {
+  background-color: #F59E0B;
+}
+
+.color-indicator.green {
+  background-color: #10B981;
+}
+
+.color-indicator.blue {
+  background-color: #3B82F6;
+}
+
+.color-indicator.brown {
+  background-color: #92400E;
+}
+
+/* === RECOMENDACIONES === */
+.recommendations {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.recommendations h4 {
+  margin-bottom: 16px;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.recommendations ul {
+  margin-left: 20px;
+}
+
+.recommendations li {
+  margin-bottom: 8px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* === NOTICIAS REALES === */
+.news-item {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid #F3F4F6;
+  transition: var(--transition-fast);
+}
+
+.news-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.news-item .news-image {
+  width: 100%;
+  height: 200px;
+  background: var(--bg-tertiary);
+  border-radius: var(--border-radius);
+  margin-bottom: 16px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.news-item .news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.news-item .news-content h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.news-item .news-content p {
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+.news-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.news-category {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 4px 8px;
+  border-radius: var(--border-radius);
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.news-date {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.news-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 4px 8px;
+  border: 1px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  transition: var(--transition-fast);
+}
+
+.news-link:hover {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* === PRECIOS DE MERCADO === */
+.market-prices {
+  background: var(--bg-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.price-item:last-child {
+  border-bottom: none;
+}
+
+.product-name {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.product-price {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.price-trend {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.price-trend.up {
+  color: #10B981;
+}
+
+.price-trend.down {
+  color: #EF4444;
+}
+
+.price-trend.stable {
+  color: #6B7280;
+}
+
+/* === RESPONSIVIDAD === */
+@media (max-width: 768px) {
+  .connection-status span {
+    display: none;
+  }
+  
+  .notifications-container {
+    left: 20px;
+    right: 20px;
+    max-width: none;
+  }
+  
+  .notification {
+    transform: translateY(-100%);
+  }
+  
+  .notification.show {
+    transform: translateY(0);
+  }
+  
+  .admin-actions {
+    flex-direction: column;
+  }
+  
+  .weather-temp-large {
+    font-size: 3rem;
+  }
+  
+  .station-data {
+    grid-template-columns: 1fr;
+  }
+  
+  .news-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* === ANIMACIONES === */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.refresh-btn:hover {
+  animation: spin 0.5s linear;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.connection-status.offline {
+  animation: pulse 2s infinite;
+}
+
+/* === LOADING STATES === */
+.loading {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* === UTILIDADES === */
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-1 { margin-top: 4px; }
+.mt-2 { margin-top: 8px; }
+.mt-3 { margin-top: 12px; }
+.mt-4 { margin-top: 16px; }
+.mt-5 { margin-top: 20px; }
+
+.mb-1 { margin-bottom: 4px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-3 { margin-bottom: 12px; }
+.mb-4 { margin-bottom: 16px; }
+.mb-5 { margin-bottom: 20px; }
+
+.p-1 { padding: 4px; }
+.p-2 { padding: 8px; }
+.p-3 { padding: 12px; }
+.p-4 { padding: 16px; }
+.p-5 { padding: 20px; }
+
+.rounded { border-radius: var(--border-radius); }
+.rounded-lg { border-radius: var(--border-radius-lg); }
+
+.shadow { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+
+.border { border: 1px solid #E5E7EB; }
+.border-t { border-top: 1px solid #E5E7EB; }
+.border-b { border-bottom: 1px solid #E5E7EB; }
+
+.bg-primary { background-color: var(--primary-color); }
+.bg-secondary { background-color: var(--bg-secondary); }
+.bg-tertiary { background-color: var(--bg-tertiary); }
+
+.text-primary { color: var(--text-primary); }
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+
+.text-sm { font-size: 0.875rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+
+.hidden { display: none; }
+.block { display: block; }
+.flex { display: flex; }
+.grid { display: grid; }
+
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.items-end { align-items: flex-end; }
+
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.justify-start { justify-content: flex-start; }
+.justify-end { justify-content: flex-end; }
+
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+
+.gap-1 { gap: 4px; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.gap-4 { gap: 16px; }
+.gap-5 { gap: 20px; }
